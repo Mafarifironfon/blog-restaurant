@@ -22,11 +22,17 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function findArticleByFilters($filters)
     {
-        $qb = $this->createQueryBuilder('a');
+        $qb = $this->createQueryBuilder('a')
+            ->leftJoin('a.keywords', 'k');
 
         if (array_key_exists('keyword', $filters) && ($filters['keyword']) !== null) {
-            $qb->andWhere('a.title LIKE :ft')
-                ->setParameter('ft', '%'.ArticleHandler::cleanString($filters['keyword']).'%');
+            $where ='a.id IS NULL';
+            $where .= ' OR a.title LIKE :title OR a.description LIKE :description OR a.author LIKE :auhtor OR k.name LIKE :keyword';
+            $qb->andWhere($where)
+                ->setParameter('title', '%'.ArticleHandler::cleanString($filters['keyword']).'%')
+                ->setParameter('description', '%'.ArticleHandler::cleanString($filters['keyword']).'%')
+                ->setParameter('auhtor', '%'.ArticleHandler::cleanString($filters['keyword']).'%')
+                ->setParameter('keyword', '%'.ArticleHandler::cleanString($filters['keyword']).'%');
         }
 
         return $qb->getQuery()->getResult();
@@ -37,40 +43,11 @@ class ArticleRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('a')
         ->leftJoin('a.category', 'c');
 
-        if (array_key_exists('name', $filters) && ($filters['name']) !== null) {
+        if (array_key_exists('category', $filters) && ($filters['category']) !== null) {
             $qb->where('c.name = :name')
-                ->setParameter('name',  $filters['name']);
+                ->setParameter('name',  $filters['category']);
         }
 
         return $qb->getQuery()->getResult();
     }
-
-    // /**
-    //  * @return Article[] Returns an array of Article objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Article
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

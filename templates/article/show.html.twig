@@ -8,11 +8,11 @@
                     <h5 class="alt-font text-extra-dark-gray font-weight-500 pb-2 pt-2">{{ article.title }}</h5>
                     <div class="outside-box-center">
                         <img src="{{ asset('uploads/images/' ~ article.image|default(asset('none.png'))) }}">
-                        {% for keyword in article.keywords %}
-                            <h6 class="alt-font text-neon-orange mt-4">#{{ keyword.name }}</h6>
-                        {% endfor %}
                     </div>
                 </div>
+                {% for keyword in article.keywords %}
+                    <h6 class="alt-font text-neon-orange mt-4 pr-4">#{{ keyword.name }}</h6>
+                {% endfor %}
             </div>
             <div class="row justify-content-center">
                 <!-- start blockquote item -->

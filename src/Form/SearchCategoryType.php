@@ -4,18 +4,23 @@ namespace App\Form;
 
 use App\Entity\Article;
 use App\Entity\Category;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Repository\ArticleRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchCategoryType extends AbstractType
 {
+    private $ar;
+
+    public function __construct(ArticleRepository $ar){
+        $this->ar = $ar;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', ChoiceType::class, array(
+            ->add('category', ChoiceType::class, array(
                 'label' => 'Filtrer par catégorie',
                 'choices' => array_flip(Category::getNameList()),
                 'required' => false,

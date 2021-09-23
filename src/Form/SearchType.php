@@ -14,7 +14,7 @@ class SearchType extends AbstractType
             ->add('keyword', TextType::class, array(
                 'required' => false,
                 'attr' => array(
-                    'placeholder' => 'Recherche par mot-clés',
+                    'placeholder' => 'Recherche par titre, description, auteur et mot-clés.',
                     'class' => 'select2',
                     'data-clearable' => true
                 )

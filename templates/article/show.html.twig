@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block main_content %}
+    <section class="big-section bg-gradient-fast-blue-purple wow animate__fadeIn" style="visibility: visible; animation-name: fadeIn;">
+        <div class="container bg-white p-4">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <h5 class="alt-font text-extra-dark-gray font-weight-500 pb-2 pt-2">{{ article.title }}</h5>
+                    <div class="outside-box-center">
+                        <img src="{{ asset('uploads/images/' ~ article.image|default(asset('none.png'))) }}">
+                        {% for keyword in article.keywords %}
+                            <h6 class="alt-font text-neon-orange mt-4">#{{ keyword.name }}</h6>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <!-- start blockquote item -->
+                <div class="col-12 col-xl-5 col-lg-6 col-md-8 col-sm-10 text-center wow animate__fadeIn">
+                    <i class="ti-quote-left text-gradient-fast-blue-purple icon-large margin-25px-bottom d-block"></i>
+                    <span class="text-extra-large text-extra-dark-gray line-height-34px alt-font d-block margin-25px-bottom">{{ article.description }}</span>
+                    <span class="alt-font text-uppercase text-small font-weight-500 letter-spacing-4px">{{ article.author }}</span>
+                </div>
+                <!-- end blockquote item -->
+            </div>
+            <div class="row justify-content-center">
+                <a href="{{ path('edit', {'id': article.id }) }}" class="btn btn-large btn-gradient-fast-blue-purple d-table d-lg-inline-block lg-margin-15px-bottom md-margin-auto-lr mt-4 mr-2">Modifier l'article</a>
+                <a href="{{ path('remove', {'id': article.id }) }}" class="btn btn-large btn-gradient-magenta-orange d-table d-lg-inline-block lg-margin-15px-bottom md-margin-auto-lr mt-4">Supprimer l'article</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

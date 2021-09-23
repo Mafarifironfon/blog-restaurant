@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block main_content %}
+    <section class="bg-gradient-purple-magenta fancy-box-background big-section cover-background" style="visibility: visible; animation-name: fadeIn;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-9 col-lg-8">
+                    <blockquote class="bg-white padding-7-rem-lr padding-6-rem-tb sm-padding-3-rem-tb sm-padding-3-rem-lr border-radius-6px">
+                        <h5 class="alt-font font-weight-600 text-extra-dark-gray pb-2">Ajout d'un article</h5>
+                        {% include 'article/_form.html.twig' with {'form' : form } %}
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
